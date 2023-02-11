@@ -1,3 +1,1 @@
 import solace
-
-print("hi")
