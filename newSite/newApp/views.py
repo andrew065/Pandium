@@ -1,12 +1,13 @@
 from django.shortcuts import render
 # Create your views here.
 import paho.mqtt.client as mqtt
+import certifi
 from django.http import HttpResponse
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     print("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-    client.subscribe("topic")
+    client.subscribe("my/topic")
 
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
@@ -18,6 +19,8 @@ def receive_messages(request):
     print("connected")
     client.on_message = on_message
     print("messaged")
+    client.tls_set(ca_certs=certifi.where())
+
     client.username_pw_set("solace-cloud-client", "llgr44bsrp3qn6jq54689ke2p9")
     print("up set")
     client.connect('mr-connection-brdco6qtfz5.messaging.solace.cloud', port=8443)
