@@ -1,35 +1,77 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    function onConnect() {
-      // Once connected, subscribe to the desired topic
-      client.subscribe("my/topic");
-      console.log("Connected");
-    }
+    <head>
+        <title>MQTT Messages</title>
+        <script>
+            var position = [40.748774, -73.985763];
 
-    function onMessageArrived(message) {
-      // When a message arrives, update the display with its payload
-      document.getElementById("mqttData").innerHTML = message.payloadString;
-      console.log("Message arrived: " + message.payloadString);
-    }
+        function initialize() {
+            var latlng = new google.maps.LatLng(position[0], position[1]);
+            var myOptions = {
+                zoom: 16,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);
 
-    // Create an MQTT client instance
-    var client = new Paho.MQTT.Client('mr-connection-brdco6qtfz5.messaging.solace.cloud', port=8443);
+            marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: "Latitude:"+position[0]+" | Longitude:"+position[1]
+            });
 
-    // Set callback handlers
-    client.onConnectionLost = function (responseObject) {
-      console.log("Connection lost: " + responseObject.errorMessage);
-    };
-    client.onMessageArrived = onMessageArrived;
+            google.maps.event.addListener(map, 'click', function(event) {
+                var result = [event.latLng.lat(), event.latLng.lng()];
+                transition(result);
+            });
+        }
 
-    // Connect to the broker
-    client.connect({ onSuccess: onConnect });
-  </script>
-</head>
-<body>
-  <h1>MQTT Data:</h1>
-  <p id="mqttData">Waiting for data...</p>
-</body>
+        //Load google map
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+
+        var numDeltas = 100;
+        var delay = 10; //milliseconds
+        var i = 0;
+        var deltaLat;
+        var deltaLng;
+
+        function transition(result){
+            i = 0;
+            deltaLat = (result[0] - position[0])/numDeltas;
+            deltaLng = (result[1] - position[1])/numDeltas;
+            moveMarker();
+        }
+
+        function moveMarker(){
+            position[0] += deltaLat;
+            position[1] += deltaLng;
+            var latlng = new google.maps.LatLng(position[0], position[1]);
+            marker.setTitle("Latitude:"+position[0]+" | Longitude:"+position[1]);
+            marker.setPosition(latlng);
+            if(i!=numDeltas){
+                i++;
+                setTimeout(moveMarker, delay);
+            }
+        }
+        </script>
+        <script>
+            function display_message(message) {
+                var messages_div = document.getElementById("messages");
+                var p = document.createElement("p");
+                p.innerHTML = message;
+                messages_div.appendChild(p);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="messages">
+        </div>
+        <script>
+            var ws = new WebSocket("ws://" + window.location.host + "");
+            ws.onmessage = function(event) {
+                display_message(event.data);
+            };
+        </script>
+    </body>
 </html>
