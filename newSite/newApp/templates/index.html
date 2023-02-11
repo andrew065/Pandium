@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MQTT Messages</title>
+        <script>
+            function display_message(message) {
+                var messages_div = document.getElementById("messages");
+                var p = document.createElement("p");
+                p.innerHTML = message;
+                messages_div.appendChild(p);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="messages">
+        </div>
+        <script>
+            var ws = new WebSocket("ws://" + window.location.host + "");
+            ws.onmessage = function(event) {
+                display_message(event.data);
+            };
+        </script>
+    </body>
+</html>
