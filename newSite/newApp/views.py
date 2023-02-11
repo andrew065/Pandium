@@ -31,7 +31,7 @@ def receive_messages(request):
     client.connect('mr-connection-brdco6qtfz5.messaging.solace.cloud', port=8443)
     print("connected                 ------")
     client.loop_start()
-    #return render(request, 'index.html')
+    return render(request, 'index.html')
 
     return HttpResponse(rand.random())
 
