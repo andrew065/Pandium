@@ -25,7 +25,6 @@ class SolaceClient:
 
         self.client.loop_start()
 
-
     def on_connect(self, userdata, flags, rc):
         print(f'Connected (Result: {rc})')
 
@@ -33,10 +32,6 @@ class SolaceClient:
         print(f'Message received on topic: {msg.topic}. Message: {msg.payload}')
         tp = self.tempTop = msg.topic
         ms = self.tempMsg = msg.payload
-
-
-
-
 
     def publish(self, index, msg):
         print(msg)

@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from mqtt.mqtt import SolaceClient
+from mqtt import SolaceClient
 
 app = Flask(__name__)
 

@@ -3,7 +3,20 @@
 
 {% block body %}
 <form action="#" method="post">
-    <p><input type="button" value="+" fetch="http://127.0.0.1:5000/publish"></p>
-    <p><input type="button" value="–" fetch="http://127.0.0.1:5000/publish"></p>
+    <label for="pulse">Pulse:</label>
+    <input type="text" id="pulse"><br>
+    <label for="bp_num">BP (num):</label>
+    <input type="text" id="bp_num"><br>
+    <label for="bp_den">BP (den):</label>
+    <input type="text" id= "bp_den"><br>
+    <label for="o sat">02 Sat:</label>
+    <input type="text" id="o sat"><br>
+    <label for="stat">Status:</label>
+    <input type="text" id="stat"><br>
+    <label for="diagnosis">Diagnosis:</label>
+    <input type="text" id="diagnosis"><br>
+    <label for="message">Message:</label>
+    <input type="text" id="message"><br>
+    <input type="submit" value="Submit">
 </form>
 {% endblock %}
