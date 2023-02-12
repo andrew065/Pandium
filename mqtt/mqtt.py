@@ -3,7 +3,7 @@ import paho.mqtt.client as mqtt
 
 
 class SolaceClient:
-    def __init__(self, name, password, host_link, topics, subscriptions, destination):
+    def __init__(self, name, password, host_link="", topics="", subscriptions=[], destination=""):
         self.name = name
         self.tops = topics
         self.subs = subscriptions
@@ -12,6 +12,9 @@ class SolaceClient:
         self.mqtt_host = host_link
         self.dest = destination
         self.client = mqtt.Client(transport='websockets')
+
+        self.tempMsg = ""
+        self.tempTop = ""
 
     def initialize_client(self):
         self.client.on_connect = self.on_connect
@@ -22,11 +25,18 @@ class SolaceClient:
 
         self.client.loop_start()
 
+
     def on_connect(self, userdata, flags, rc):
         print(f'Connected (Result: {rc})')
 
     def on_message(self, userdata, msg):
         print(f'Message received on topic: {msg.topic}. Message: {msg.payload}')
+        tp = self.tempTop = msg.topic
+        ms = self.tempMsg = msg.payload
+
+
+
+
 
     def publish(self, index, msg):
         print(msg)
