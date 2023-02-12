@@ -1,0 +1,80 @@
+Index: newSite/newApp/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.shortcuts import render\r\n# Create your views here.\r\nimport paho.mqtt.client as mqtt\r\nimport certifi\r\nfrom django.http import HttpResponse\r\nimport random as rand\r\nimport csv\r\nmsgO = \"\"\r\ncnt = 0\r\ndef on_connect(client, userdata, flags, rc):\r\n\r\n    print(\"Connected with result code \"+str(rc))\r\n    client.subscribe(\"+/topic\")\r\n\r\ndef on_message(client, userdata, msg):\r\n    msgO = str(msg.payload)\r\n    print(msg.topic+\" \"+str(msg.payload))\r\n\r\ndef receive_messages(request):\r\n\r\n    client = mqtt.Client(transport = \"websockets\")\r\n    client.on_connect = on_connect\r\n\r\n    print(\"connected\")\r\n    client.on_message = on_message\r\n    print(\"messaged\")\r\n    client.tls_set(ca_certs=certifi.where())\r\n\r\n    client.username_pw_set(\"solace-cloud-client\", \"llgr44bsrp3qn6jq54689ke2p9\")\r\n    print(\"up set\")\r\n    client.connect('mr-connection-brdco6qtfz5.messaging.solace.cloud', port=8443)\r\n    print(\"connected                 ------\")\r\n    client.loop_start()\r\n    return render(request, 'index.html')\r\n\r\n    return HttpResponse(rand.random())\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- newSite/newApp/views.py	(revision 6c4af728bb8d80a1d015ad337de3c7efcefa0e6a)
++++ newSite/newApp/views.py	(date 1676157361656)
+@@ -29,9 +29,9 @@
+     client.username_pw_set("solace-cloud-client", "llgr44bsrp3qn6jq54689ke2p9")
+     print("up set")
+     client.connect('mr-connection-brdco6qtfz5.messaging.solace.cloud', port=8443)
+-    print("connected                 ------")
++    print("connected             ------")
+     client.loop_start()
+     return render(request, 'index.html')
+ 
+-    return HttpResponse(rand.random())
++    #return HttpResponse(rand.random())
+ 
+Index: newSite/newApp/templates/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html>\r\n    <head>\r\n        <title>MQTT Messages</title>\r\n        <script>\r\n            var position = [40.748774, -73.985763];\r\n\r\n        function initialize() {\r\n            var latlng = new google.maps.LatLng(position[0], position[1]);\r\n            var myOptions = {\r\n                zoom: 16,\r\n                center: latlng,\r\n                mapTypeId: google.maps.MapTypeId.ROADMAP\r\n            };\r\n            map = new google.maps.Map(document.getElementById(\"mapCanvas\"), myOptions);\r\n\r\n            marker = new google.maps.Marker({\r\n                position: latlng,\r\n                map: map,\r\n                title: \"Latitude:\"+position[0]+\" | Longitude:\"+position[1]\r\n            });\r\n\r\n            google.maps.event.addListener(map, 'click', function(event) {\r\n                var result = [event.latLng.lat(), event.latLng.lng()];\r\n                transition(result);\r\n            });\r\n        }\r\n\r\n        //Load google map\r\n        google.maps.event.addDomListener(window, 'load', initialize);\r\n\r\n\r\n        var numDeltas = 100;\r\n        var delay = 10; //milliseconds\r\n        var i = 0;\r\n        var deltaLat;\r\n        var deltaLng;\r\n\r\n        function transition(result){\r\n            i = 0;\r\n            deltaLat = (result[0] - position[0])/numDeltas;\r\n            deltaLng = (result[1] - position[1])/numDeltas;\r\n            moveMarker();\r\n        }\r\n\r\n        function moveMarker(){\r\n            position[0] += deltaLat;\r\n            position[1] += deltaLng;\r\n            var latlng = new google.maps.LatLng(position[0], position[1]);\r\n            marker.setTitle(\"Latitude:\"+position[0]+\" | Longitude:\"+position[1]);\r\n            marker.setPosition(latlng);\r\n            if(i!=numDeltas){\r\n                i++;\r\n                setTimeout(moveMarker, delay);\r\n            }\r\n        }\r\n        </script>\r\n        <script>\r\n            function display_message(message) {\r\n                var messages_div = document.getElementById(\"messages\");\r\n                var p = document.createElement(\"p\");\r\n                p.innerHTML = message;\r\n                messages_div.appendChild(p);\r\n            }\r\n        </script>\r\n    </head>\r\n    <body>\r\n        <div id=\"messages\">\r\n        </div>\r\n        <script>\r\n            var ws = new WebSocket(\"ws://\" + window.location.host + \"\");\r\n            ws.onmessage = function(event) {\r\n                display_message(event.data);\r\n            };\r\n        </script>\r\n    </body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- newSite/newApp/templates/index.html	(revision 6c4af728bb8d80a1d015ad337de3c7efcefa0e6a)
++++ newSite/newApp/templates/index.html	(date 1676158235709)
+@@ -2,7 +2,7 @@
+ <html>
+     <head>
+         <title>MQTT Messages</title>
+-        <script>
++        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5ZUlxkL3i4bttLWqoL6XhV3rifePB-CY">
+             var position = [40.748774, -73.985763];
+ 
+         function initialize() {
+@@ -25,7 +25,6 @@
+                 transition(result);
+             });
+         }
+-
+         //Load google map
+         google.maps.event.addDomListener(window, 'load', initialize);
+ 
+@@ -54,7 +53,7 @@
+                 setTimeout(moveMarker, delay);
+             }
+         }
+-        </script>
++        </>
+         <script>
+             function display_message(message) {
+                 var messages_div = document.getElementById("messages");
+@@ -65,6 +64,7 @@
+         </script>
+     </head>
+     <body>
++    <div id = "mapCanvas"></div>
+         <div id="messages">
+         </div>
+         <script>
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/README_INFO.md\r\n/creds.pyl
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .gitignore	(revision 6c4af728bb8d80a1d015ad337de3c7efcefa0e6a)
++++ .gitignore	(date 1676157110453)
+@@ -1,2 +1,3 @@
+ /README_INFO.md
+-/creds.pyl
+\ No newline at end of file
++/creds.py
++/venv
+\ No newline at end of file

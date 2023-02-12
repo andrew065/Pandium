@@ -29,9 +29,9 @@ def receive_messages(request):
     client.username_pw_set("solace-cloud-client", "llgr44bsrp3qn6jq54689ke2p9")
     print("up set")
     client.connect('mr-connection-brdco6qtfz5.messaging.solace.cloud', port=8443)
-    print("connected                 ------")
+    print("connected             ------")
     client.loop_start()
     return render(request, 'index.html')
 
-    return HttpResponse(rand.random())
+    #return HttpResponse(rand.random())
 
