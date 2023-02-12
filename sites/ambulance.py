@@ -26,7 +26,7 @@ def hospital():
 @app.route('/publish')
 def publish():  # make endpoint and fetch during button press
     print('button clicked')
-    return redirect()
+    return render_template('index_ambu.html')
 
 
 if __name__ == '__main__':
