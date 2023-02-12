@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Map View</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <script type="module" src="../static/js/maps.js"></script>
 </head>
 <body>
-
+    <h3>Hospital Map Demo</h3>
+    <div id="map"></div>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5ZUlxkL3i4bttLWqoL6XhV3rifePB-CY&callback=initMap&v=weekly">
+        defer
+    </script>
 </body>
-</html>
+
+<!--var position = [40.748774, -73.985763];-->
+
+<!--function initialize() {-->
+<!--    var latlng = new google.maps.LatLng(position[0], position[1]);-->
+<!--    var myOptions = {-->
+<!--        zoom: 16,-->
+<!--        center: latlng,-->
+<!--        mapTypeId: 'roadmap'-->
+<!--    };-->
+<!--    const map = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);-->
+
+<!--    marker = new google.maps.Marker({-->
+<!--        position: latlng,-->
+<!--        map: map,-->
+<!--        title: "Latitude:"+position[0]+" | Longitude:"+position[1]-->
+<!--    });-->
+
+<!--}-->
+
+
+<!--function transition(result){-->
+<!--    i = 0;-->
+<!--    deltaLat = (result[0] - position[0])/numDeltas;-->
+<!--    deltaLng = (result[1] - position[1])/numDeltas;-->
+<!--    moveMarker();-->
+<!--}-->
+
+
+<!--</script>-->
+
+<!--<body onload="initialize()">-->
+<!--<button type = "button" onclick="initialize()">press</button>-->
+<!--    <div id="mapCanvas"></div>-->
+<!--    <p>hi</p>-->
+<!--</body>-->
+<!--</html>-->
