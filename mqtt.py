@@ -1,15 +1,15 @@
-import certifi
+import certifi, creds
 import paho.mqtt.client as mqtt
 
 
 class SolaceClient:
-    def __init__(self, name, password, host_link="", topics="", subscriptions=[], destination=""):
+    def __init__(self, name, topics="", subscriptions=[], destination=""):
         self.name = name
         self.tops = topics
         self.subs = subscriptions
         self.port = 8443
-        self.password = password
-        self.mqtt_host = host_link
+        self.password = creds.PASSWORD
+        self.mqtt_host = creds.SECURED_MQTT_HOST
         self.dest = destination
         self.client = mqtt.Client(transport='websockets')
 
@@ -18,7 +18,7 @@ class SolaceClient:
 
     def initialize_client(self):
         self.client.on_connect = self.on_connect
-        self.client.on_message = self.on_message
+        # self.client.on_message = self.on_message
         self.client.tls_set(ca_certs=certifi.where())
         self.client.username_pw_set('solace-cloud-client', self.password)
         self.client.connect(self.mqtt_host, self.port)
@@ -30,8 +30,6 @@ class SolaceClient:
 
     def on_message(self, userdata, msg):
         print(f'Message received on topic: {msg.topic}. Message: {msg.payload}')
-
-
         tp = self.tempTop = msg.topic
         ms = self.tempMsg = msg.payload
 
@@ -42,3 +40,7 @@ class SolaceClient:
     def publish(self, topic, msg):
         print(msg)
         self.client.publish(topic, msg)
+
+    def subscribe(self):
+        for x in self.subs:
+            self.client.subscribe(x)
