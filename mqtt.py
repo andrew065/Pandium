@@ -36,3 +36,7 @@ class SolaceClient:
     def publish(self, index, msg):
         print(msg)
         self.client.publish(self.tops[index], msg)
+
+    def publish(self, topic, msg):
+        print(msg)
+        self.client.publish(topic, msg)

@@ -4,24 +4,24 @@
 {% block body %}
 <form action="#" method="post">
     <label for="pulse">Pulse:</label>
-    <input type="text" id="pulse"><br>
+    <input type="text" id="pulse" name="pulse"><br>
     <label for="bp_num">BP (num):</label>
-    <input type="text" id="bp_num"><br>
+    <input type="text" id="bp_num" name="bp_num"><br>
     <label for="bp_den">BP (den):</label>
-    <input type="text" id= "bp_den"><br>
-    <label for="o sat">02 Sat:</label>
-    <input type="text" id="o sat"><br>
+    <input type="text" id= "bp_den" name="bp_den"><br>
+    <label for="sat">02 Sat:</label>
+    <input type="text" id="sat" name="sat"><br>
     <label for="stat">Status:</label>
-    <input type="text" id="stat"><br>
+    <input type="text" id="stat" name="stat"><br>
     <label for="diagnosis">Diagnosis:</label>
-    <input type="text" id="diagnosis"><br>
+    <input type="text" id="diagnosis" name="diagnosis"><br>
     <label for="message">Message:</label>
-    <input type="text" id="message"><br>
-    <input type="submit" value="Submit Vitals"><br>
+    <input type="text" id="message" name="message"><br>
+    <input type="submit" value="Submit Vitals" name="Submit Vitals"><br>
     <label for="lat">Latitude:</label>
-    <input type="text" id="lat"><br>
+    <input type="text" id="lat" name="lat"><br>
     <label for="long">Longitude:</label>
-    <input type="text" id="long"><br>
-    <input type="submit" value="Submit GPS">
+    <input type="text" id="long" name="long"><br>
+    <input type="submit" value="Submit GPS" name="Submit GPS">
 </form>
 {% endblock %}
