@@ -1,5 +1,4 @@
 import solace
-from django.shortcuts import render
 # Create your views here.
 import paho.mqtt.client as mqtt
 import certifi
