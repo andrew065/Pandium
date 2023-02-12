@@ -6,7 +6,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    hosClient = SolaceClient("hos1", "llgr44bsrp3qn6jq54689ke2p9")
+    hosClient = SolaceClient("hos1", "ll"
+                                     "gr44bsrp3qn6jq54689ke2p9")
     hosClient.initialize_client()
 
     #the information pass through should be processed in the MQTT file right after it is processed
