@@ -8,7 +8,7 @@ ambu_client.initialize_client()
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    if request.method == 'POST':
+    # if request.method == 'POST':
 
 
     return render_template('index_ambu.html')
