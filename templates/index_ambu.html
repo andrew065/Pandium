@@ -1,27 +1,77 @@
+
 {% extends 'base.html' %}
-{% block head %}<h1>Ambulance</h1>{% endblock %}
+
+{% block head %}
+<link rel = "icon" href="icon.png" type = "image/x-icon">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+
+<img src="uOttawaHacks/fullLogo.png" alt="Pandium logo">
+  <h1 align="center">Ambulance Portal</h1>
+{% endblock %}
 
 {% block body %}
-<form action="#" method="post">
-    <label for="pulse">Pulse:</label>
-    <input type="text" id="pulse"><br>
-    <label for="bp_num">BP (num):</label>
-    <input type="text" id="bp_num"><br>
-    <label for="bp_den">BP (den):</label>
-    <input type="text" id= "bp_den"><br>
-    <label for="o sat">02 Sat:</label>
-    <input type="text" id="o sat"><br>
-    <label for="stat">Status:</label>
-    <input type="text" id="stat"><br>
-    <label for="diagnosis">Diagnosis:</label>
-    <input type="text" id="diagnosis"><br>
-    <label for="message">Message:</label>
-    <input type="text" id="message"><br>
-    <input type="submit" value="Submit Vitals"><br>
-    <label for="lat">Latitude:</label>
-    <input type="text" id="lat"><br>
-    <label for="long">Longitude:</label>
-    <input type="text" id="long"><br>
-    <input type="submit" value="Submit GPS">
-</form>
+
+  <center>
+    <form>
+      <fieldset>
+        <legend>Patient Vital Information</legend>
+        <table>
+          <tr>
+            <td align="right"><label for="pulse">Pulse:</label></td>
+            <td align="left"><input id="pulse" type="text"></td>
+          </tr>
+          <tr>
+            <td align="right"><label for="bp_num">BP (num):</label></td>
+            <td align="left"><input id="bp_num" type="text"></td>
+          </tr>
+          <tr>
+            <td align="right"><label for="bp_den">BP (den):</label></td>
+            <td align="left"><input id="bp_den" type="text"></td>
+          </tr>
+          <tr>
+            <td align="right"><label for="o_sat">O2 Sat:</label></td>
+            <td align="left"><input id="o_sat" type="text"></td>
+          </tr>
+          <tr>
+            <td align="right"><label for="status">Status:</label></td>
+            <td align="left"><input id="status" type="text"></td>
+          </tr>
+          <tr>
+            <td align="right"><label for="diagnosis">Diagnosis:</label></td>
+            <td align="left"><input id="diagnosis" type="text"></td>
+          </tr>
+          <tr>
+            <td align="right"><label for="message">Message:</label></td>
+            <td align="left"><input id="message" type="text"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td align="left">
+              <input type="submit" value="Submit Vitals">
+            </td>
+          </tr>
+        </table><br>
+
+
+          <legend>Location Information</legend>
+        <table>
+          <tr>
+            <td align="right"><label for="lat">Latitude:</label></td>
+            <td align="left"><input type="text" id="lat"></td>
+          </tr>
+          <tr>
+            <td align="right"><label for="long">Longitude:</label></td>
+            <td align="left"><input type="text" id="long"></td>
+          </tr>
+          <tr>
+            <td></td>
+
+            <td align="left">
+              <input type="submit" value="Submit GPS">
+            </td>
+          </tr>
+
+        </table>
+
 {% endblock %}
+

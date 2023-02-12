@@ -30,6 +30,8 @@ class SolaceClient:
 
     def on_message(self, userdata, msg):
         print(f'Message received on topic: {msg.topic}. Message: {msg.payload}')
+
+
         tp = self.tempTop = msg.topic
         ms = self.tempMsg = msg.payload
 
