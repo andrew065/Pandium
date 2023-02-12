@@ -9,6 +9,15 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/ambulance')
+def ambulance():
+    return render_template('index_ambu.html')
+
+
+@app.route('/hospital')
+def hospital():
+    return render_template('index_hosp.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
