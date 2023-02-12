@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
 import sqlite3
 import os
 
@@ -12,7 +12,6 @@ def index():
 @app.route('/ambulance', methods=['POST', 'GET'])
 def ambulance():
     if request.method == 'POST':
-        request.form
         print('button clicked')
         return render_template('index_ambu.html')
     else:
@@ -27,6 +26,7 @@ def hospital():
 @app.route('/publish')
 def publish():  # make endpoint and fetch during button press
     print('button clicked')
+    return redirect()
 
 
 if __name__ == '__main__':
